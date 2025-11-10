@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="HealthContainer" style="flex-direction: column; gap: 4px; height: 160px; width: 34px;">
+        <ui:VisualElement name="Health" style="background-image: url(&quot;project://database/Assets/Assets/UIAssets/pico8_invaders_sprites_LARGE_116.asset?fileID=21300000&amp;guid=c7e1e1e1367032167bf76bf422786f90&amp;type=2#pico8_invaders_sprites_LARGE_116&quot;); width: 35px; height: 32px; background-size: 100% 100%;" />
+        <ui:VisualElement name="Health" style="background-image: url(&quot;project://database/Assets/Assets/UIAssets/pico8_invaders_sprites_LARGE_116.asset?fileID=21300000&amp;guid=c7e1e1e1367032167bf76bf422786f90&amp;type=2#pico8_invaders_sprites_LARGE_116&quot;); width: 35px; height: 32px; background-size: 100% 100%;" />
+        <ui:VisualElement name="Health" style="background-image: url(&quot;project://database/Assets/Assets/UIAssets/pico8_invaders_sprites_LARGE_116.asset?fileID=21300000&amp;guid=c7e1e1e1367032167bf76bf422786f90&amp;type=2#pico8_invaders_sprites_LARGE_116&quot;); width: 35px; height: 32px; background-size: 100% 100%;" />
+        <ui:VisualElement name="Health" style="background-image: url(&quot;project://database/Assets/Assets/UIAssets/pico8_invaders_sprites_LARGE_116.asset?fileID=21300000&amp;guid=c7e1e1e1367032167bf76bf422786f90&amp;type=2#pico8_invaders_sprites_LARGE_116&quot;); width: 35px; height: 32px; background-size: 100% 100%;" />
+        <ui:VisualElement name="Health" style="background-image: url(&quot;project://database/Assets/Assets/UIAssets/pico8_invaders_sprites_LARGE_116.asset?fileID=21300000&amp;guid=c7e1e1e1367032167bf76bf422786f90&amp;type=2#pico8_invaders_sprites_LARGE_116&quot;); width: 35px; height: 32px; background-size: 100% 100%;" />
+    </ui:VisualElement>
+    <ui:Label text="Score" name="Score" style="left: 90%; top: -40%; width: 30%; color: rgb(255, 255, 255); -unity-text-align: upper-left;" />
+</ui:UXML>
