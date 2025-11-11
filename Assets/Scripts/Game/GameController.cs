@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController Instance;  // Singleton
+    public static GameController Instance;  
     public GameObject enemyPrefab;
     public Transform[] enemySpawnPoints;
     public GameObject player;
@@ -14,7 +14,6 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        // Assure qu'il n'y a qu'un seul GameController dans la scène
         if (Instance == null)
         {
             Instance = this;
@@ -46,7 +45,7 @@ public class GameController : MonoBehaviour
 
     public void EndGame()
     {
-        SceneManager.LoadScene("MainMenu"); // Retour menu
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void AddScore(int value)

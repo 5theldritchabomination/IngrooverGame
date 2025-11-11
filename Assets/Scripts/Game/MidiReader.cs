@@ -16,7 +16,7 @@ public class MidiReader : MonoBehaviour
     private MidiStreamPlayer midiStreamPlayer;
 
     public static MidiReader Instance;
-    public string midiFilePath; // Chemin vers ton MIDI
+    public string midiFilePath; 
     private MidiFile midiFile;
 
     public TempoMap TempoMap => midiFile.GetTempoMap();
@@ -44,7 +44,6 @@ public class MidiReader : MonoBehaviour
         if (midiFile == null)
             return new List<byte>();
 
-        // On parcourt toutes les notes et on prend leur channel
         var channels = midiFile.GetNotes()
                                .Select(n => (byte)n.Channel)
                                .Distinct()
@@ -59,7 +58,6 @@ public class MidiReader : MonoBehaviour
     {
         if (midiStreamPlayer == null) return;
 
-        // Play the note immediately
         midiStreamPlayer.MPTK_PlayEvent(new MPTKEvent()
         {
             Command = MPTKCommand.NoteOn,
@@ -68,7 +66,6 @@ public class MidiReader : MonoBehaviour
             Channel = 0
         });
 
-        // Schedule the note off
         StartCoroutine(StopNoteAfterDelay(note.NoteNumber, note.Time));
     }
 

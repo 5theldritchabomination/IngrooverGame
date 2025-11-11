@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     Vector2 movementVector;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>(); 

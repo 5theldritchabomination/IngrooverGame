@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class EscapeUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public static EscapeUI Instance { get; private set; }
 
     private VisualElement root;
@@ -15,7 +14,6 @@ public class EscapeUI : MonoBehaviour
         UIDocument uiDocument = GetComponent<UIDocument>();
         root = uiDocument.rootVisualElement;
     }
-    // Update is called once per frame
     public void Show()
     {
         VisualElement container = root.Q<VisualElement>("Buttons");

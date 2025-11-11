@@ -9,7 +9,6 @@ public class InvaderSpawner : MonoBehaviour
     [SerializeField]
     private GameObject invaderPrefab;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(RythmSpawn());

@@ -13,7 +13,7 @@ public TMP_Dropdown dropdown;
     public Button returnButton;
     public Button addFileButton;
 
-    public string midiFolderPath = "Assets/MidiFiles"; // Dossier contenant les fichiers MIDI
+    public string midiFolderPath = "Assets/MidiFiles";
     private static string midiFilePath;
 
     void Start()
@@ -35,7 +35,6 @@ public TMP_Dropdown dropdown;
             return;
         }
 
-        // Récupère tous les fichiers MIDI (.mid ou .midi)
         string[] midiFiles = System.IO.Directory.GetFiles(midiFolderPath, "*.mid").Concat(System.IO.Directory.GetFiles(midiFolderPath, "*.midi")).ToArray();
 
         var options = midiFiles.Select(file => Path.GetFileNameWithoutExtension(file).Substring(0, Mathf.Min(15, Path.GetFileNameWithoutExtension(file).Length))).ToList();
@@ -62,19 +61,15 @@ public TMP_Dropdown dropdown;
 
     void LoadMIDI()
     {
-        // Déclarez midiFilePath avant de l'utiliser
         string midiFilePath = "";
         
 
 #if UNITY_EDITOR
-        // Utiliser Application.dataPath pour obtenir un chemin absolu vers le dossier "Assets/MidiFiles"
         string midiFolderPath = Path.Combine(Application.dataPath, "MidiFiles");
         
-        // Ouvrir un panneau de sélection de fichier en utilisant le chemin absolu
         GameData.midiFilePath = UnityEditor.EditorUtility.OpenFilePanel("", midiFolderPath, "mid,midi");
 #endif
 
-        // Affichez le chemin du fichier sélectionné dans la console
         Debug.Log("Fichier MIDI sélectionné : " + midiFilePath);
         var options = midiFilePath.Split(new char []{'/'}).Last().Split(new char []{'.'}) ;
         EditButtonStart(options[0].Substring(0, Mathf.Min(15, Path.GetFileNameWithoutExtension(options[0]).Length)));
