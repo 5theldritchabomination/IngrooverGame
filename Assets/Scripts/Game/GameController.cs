@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,9 +39,14 @@ public class GameController : MonoBehaviour
     {
         isGameActive = true;
         score = 0;
+        //string midiFilePath = GameData.midiFilePath.ToString;
 
         // Tu pourras ici lancer le MIDI plus tard :
-        // MidiReader.Instance.LoadMidi(GameData.midiFilePath);
+        MidiReader.Instance.LoadMidi(GameData.midiFilePath.ToString());
+        foreach (byte channel in MidiReader.Instance.GetChannels())
+        {
+            Debug.Log(channel); 
+        }
 
         SpawnInitialEnemies();
         Debug.Log("🚀 Jeu lancé !");

@@ -182,3 +182,5 @@ MonoBehaviour:
   idleSprite: {fileID: 728952744, guid: b28e1dcfcbec5d55e8811bc1a3235dda, type: 3}
   movingSprite: {fileID: -848601274, guid: b28e1dcfcbec5d55e8811bc1a3235dda, type: 3}
   frameTime: 0.5
+  gameControllerObj: {fileID: 0}
+  playerObj: {fileID: 0}

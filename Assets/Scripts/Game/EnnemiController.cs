@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -13,7 +14,7 @@ public class EnemyController : MonoBehaviour
     private bool showingIdle = true;
     public GameController gameControllerObj;
 
-
+    public PlayerController playerObj;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class EnemyController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = idleSprite;
         gameControllerObj = FindFirstObjectByType<GameController>();
-
+        playerObj = FindFirstObjectByType<PlayerController>();
     }
 
     void FixedUpdate()
@@ -53,9 +54,16 @@ public class EnemyController : MonoBehaviour
             Die();
             gameControllerObj.AddScore(+1);
         }
+        
+        if (other.CompareTag("Down_border"))
+        {
+            
+            playerObj.ChangeHealth(-1);
+            Die();
+        }
     }
     public void Die()
-   {
-       Destroy(gameObject);
-   }
+    {
+        Destroy(gameObject);
+    }
 }

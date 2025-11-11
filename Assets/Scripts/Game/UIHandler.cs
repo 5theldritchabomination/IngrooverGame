@@ -34,6 +34,7 @@ public class UIHandler : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-       
+        TextElement scoreCounter = root.Q<TextElement>("Score");
+        scoreCounter.text = "Score :" + score;
     }
 }

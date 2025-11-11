@@ -3,66 +3,48 @@ using System.Linq;
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using System.Collections;
+using System.Collections.Generic;
+using Melanchall.DryWetMidi.MusicTheory;
+using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
+
 
 public class MidiReader : MonoBehaviour
 {
-    public string midiFilePath; // Chemin absolu ou relatif à ton dossier Assets
+    public static MidiReader Instance;
+    public string midiFilePath; // Chemin vers ton MIDI
+    private MidiFile midiFile;
 
-    void Start()
+    public TempoMap TempoMap => midiFile.GetTempoMap();
+
+    void Awake()
     {
+        Instance = this;
         string path = GameData.midiFilePath;
-
-        if (string.IsNullOrEmpty(path))
-        {
-            Debug.LogError("❌ Aucun fichier MIDI défini !");
-            return;
-        }
-
-        Debug.Log("🎵 Lecture du fichier MIDI : " + path);
-
-        try
-        {
-            var midiFile = MidiFile.Read(path);
-            var notes = midiFile.GetNotes();
-            Debug.Log($"✅ {notes.Count} notes chargées depuis {path}");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Erreur de lecture MIDI : " + e.Message);
-        }
+        midiFile = MidiFile.Read(path);
+        var notes = midiFile.GetNotes();
     }
 
     public void LoadMidi(string path)
     {
-        try
-        {
-            Debug.Log("Chargement du fichier MIDI : " + path);
+        midiFile = MidiFile.Read(path);
+    }
 
-            var midiFile = MidiFile.Read(path);
+    public IEnumerable<Melanchall.DryWetMidi.Interaction.Note> PercussionNotes =>
+        midiFile?.GetNotes().Where(n => n.Channel == 0);
+    
+    public List<byte> GetChannels()
+    {
+        if (midiFile == null)
+            return new List<byte>();
 
-            // Récupérer les notes
-            var notes = midiFile.GetNotes();
-            Debug.Log($"🎵 {notes.Count()} notes trouvées dans le fichier.");
+        // On parcourt toutes les notes et on prend leur channel
+        var channels = midiFile.GetNotes()
+                               .Select(n => (byte)n.Channel)
+                               .Distinct()
+                               .OrderBy(c => c)
+                               .ToList();
 
-            // Récupérer le tempo
-            var tempoMap = midiFile.GetTempoMap();
-            var tempos = midiFile.GetTempoMap().GetTempoChanges();
-
-            foreach (var tempo in tempos)
-            {
-                Debug.Log($"Tempo : {tempo.Value.BeatsPerMinute} BPM à {tempo.Time}");
-            }
-
-            // Exemple : afficher les premières notes
-            foreach (var note in notes.Take(10))
-            {
-                var time = note.TimeAs<MetricTimeSpan>(tempoMap);
-                Debug.Log($"Note {note.NoteName} à {time.Minutes:D2}:{time.Seconds:D2}:{time.Milliseconds:D3}");
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Erreur de lecture MIDI : " + e.Message);
-        }
+        return channels;
     }
 }
