@@ -10,12 +10,13 @@ public class UIHandler : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        UIDocument uiDocument = GetComponent<UIDocument>();
+        root = uiDocument.rootVisualElement;
     }
 
     void Start()
     {
-        UIDocument uiDocument = GetComponent<UIDocument>();
-        root = uiDocument.rootVisualElement;
+
     }
 
     public void SetHealthValue(int currentHealth)

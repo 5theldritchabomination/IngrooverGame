@@ -31,17 +31,10 @@ public class GameController : MonoBehaviour
         StartGame();
     }
 
-    // -------------------
-    // 🔹 GESTION DU JEU
-    // -------------------
-
     public void StartGame()
     {
         isGameActive = true;
         score = 0;
-        //string midiFilePath = GameData.midiFilePath.ToString;
-
-        // Tu pourras ici lancer le MIDI plus tard :
         MidiReader.Instance.LoadMidi(GameData.midiFilePath.ToString());
         foreach (byte channel in MidiReader.Instance.GetChannels())
         {
@@ -49,26 +42,18 @@ public class GameController : MonoBehaviour
         }
 
         SpawnInitialEnemies();
-        Debug.Log("🚀 Jeu lancé !");
     }
 
     public void EndGame()
     {
-        isGameActive = false;
-        Debug.Log("💀 Game Over !");
         SceneManager.LoadScene("MainMenu"); // Retour menu
     }
 
     public void AddScore(int value)
     {
         score += value;
-        Debug.Log($"Score: {score}");
         UIHandler.instance.UpdateScore(score);
     }
-
-    // -------------------
-    // 🔹 ENNEMIS
-    // -------------------
     void SpawnInitialEnemies()
     {
         foreach (Transform spawn in enemySpawnPoints)

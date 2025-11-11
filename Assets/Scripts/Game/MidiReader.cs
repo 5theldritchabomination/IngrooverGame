@@ -7,10 +7,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.MusicTheory;
 using MidiNote = Melanchall.DryWetMidi.Interaction.Note;
+using MidiPlayerTK;
+
 
 
 public class MidiReader : MonoBehaviour
 {
+    private MidiStreamPlayer midiStreamPlayer;
+
     public static MidiReader Instance;
     public string midiFilePath; // Chemin vers ton MIDI
     private MidiFile midiFile;
@@ -19,6 +23,8 @@ public class MidiReader : MonoBehaviour
 
     void Awake()
     {
+        midiStreamPlayer = FindFirstObjectByType<MidiStreamPlayer>();
+
         Instance = this;
         string path = GameData.midiFilePath;
         midiFile = MidiFile.Read(path);
@@ -32,7 +38,7 @@ public class MidiReader : MonoBehaviour
 
     public IEnumerable<Melanchall.DryWetMidi.Interaction.Note> PercussionNotes =>
         midiFile?.GetNotes().Where(n => n.Channel == 0);
-    
+
     public List<byte> GetChannels()
     {
         if (midiFile == null)
@@ -46,5 +52,35 @@ public class MidiReader : MonoBehaviour
                                .ToList();
 
         return channels;
+    }
+    
+
+    public void PlayNote(Melanchall.DryWetMidi.Interaction.Note note)
+    {
+        if (midiStreamPlayer == null) return;
+
+        // Play the note immediately
+        midiStreamPlayer.MPTK_PlayEvent(new MPTKEvent()
+        {
+            Command = MPTKCommand.NoteOn,
+            Value = note.NoteNumber,
+            Velocity = note.Velocity,
+            Channel = 0
+        });
+
+        // Schedule the note off
+        StartCoroutine(StopNoteAfterDelay(note.NoteNumber, note.Time));
+    }
+
+    private System.Collections.IEnumerator StopNoteAfterDelay(int note, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        midiStreamPlayer.MPTK_PlayEvent(new MPTKEvent()
+        {
+            Command = MPTKCommand.NoteOff,
+            Value = 0,
+            Channel = 0
+        });
     }
 }

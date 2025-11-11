@@ -47,10 +47,27 @@ public class PlayerController : MonoBehaviour
     }
     void Launch()
     {
-        GameObject projectileObject = Instantiate(projectilePrefab, rb.position + Vector2.up * 0.5f, Quaternion.identity); 
+        GameObject projectileObject = Instantiate(projectilePrefab, rb.position + Vector2.up * 0.5f, Quaternion.identity);
         projectile projectile = projectileObject.GetComponent<projectile>();
         projectile.Launch(movementVector, 300);
-        
+
+    }
+
+    void OnEscape(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (Time.timeScale != 0)
+            {
+                Time.timeScale = 0;
+                EscapeUI.Instance.Show();
+            } 
+            else
+            {
+                Time.timeScale = 1;
+                EscapeUI.Instance.Hide();
+            }
+        }
     }
     
 

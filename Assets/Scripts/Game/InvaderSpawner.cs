@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.Interaction;
+using MidiPlayerTK;
+
 public class InvaderSpawner : MonoBehaviour
 {
     [SerializeField]
@@ -35,6 +37,6 @@ public class InvaderSpawner : MonoBehaviour
     
     public void playSound(Note note)
     {
-        audio.pitch(note);
+        MidiReader.Instance.PlayNote(note);
     }
 }
